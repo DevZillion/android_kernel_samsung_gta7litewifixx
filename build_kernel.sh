@@ -46,6 +46,14 @@ if [ "${WITH_OUTDIR}" == true ]; then
    fi
 fi
 
+# Sync KernelSU
+if [ "${BUILD_KSU}" == true ]; then
+   curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+else
+   # Build without KernelSU :)
+   rm -rf "$(pwd)/KernelSU"
+fi
+
 if [ "${WITH_OUTDIR}" == true ]; then
    "${CCACHE}" make O="$(pwd)/gta7litewifi" gta7litewifi_defconfig
    "${CCACHE}" make -j`nproc` O="$(pwd)/gta7litewifi"
