@@ -48,6 +48,8 @@ fi
 
 # Sync KernelSU
 if [ "${BUILD_KSU}" == true ]; then
+   # Backup stat.c
+   cp "$(pwd)/fs/stat.c" "$(pwd)/fs/stat.c.orig"
    patch -p1 < "$(pwd)/kernelsu.patch"
    curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
 else
