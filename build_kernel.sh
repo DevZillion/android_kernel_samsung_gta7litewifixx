@@ -4,11 +4,11 @@
 
 # Clone GCC & Proton Clang.
 [[ -d "$(pwd)/gcc/" ]] || git clone https://github.com/VH-Devices/toolchains -b gcc-10.3.0 gcc --depth 1 >> /dev/null 2> /dev/null
-[[ -d "$(pwd)/clang/" ]] || git clone https://github.com/kdrag0n/proton-clang clang --depth 1 >> /dev/null 2> /dev/null
+[[ -d "$(pwd)/clang/" ]] || git clone https://github.com/DevZillion/clang_r383902 -b main clang --depth 1 >> /dev/null 2> /dev/null
 
 # Export KBUILD_BUILD_{USER,HOST} flags.
-export KBUILD_BUILD_USER="zyzoh"
-export KBUILD_BUILD_HOST="zyzoh"
+export KBUILD_BUILD_USER="zillion"
+export KBUILD_BUILD_HOST="github"
 
 # Export ARCH/SUBARCH flags.
 export ARCH="arm64"
