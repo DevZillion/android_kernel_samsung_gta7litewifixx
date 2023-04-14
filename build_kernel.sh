@@ -48,10 +48,22 @@ fi
 
 # Sync KernelSU
 if [ "${BUILD_KSU}" == true ]; then
+   patch -p1 < "$(pwd)/kernelsu.patch"
    curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
 else
    # Build without KernelSU :)
-   rm -rf "$(pwd)/KernelSU"
+   # Check if exec.c.orig exists, if it exists then the KernelSU patch was previosly applied so we need to restore the original files.
+   if [ -f "$(pwd)/fs/exec.c.orig" ]; then
+      rm -rf "$(pwd)/KernelSU"
+      rm -rf "$(pwd)/fs/exec.c"
+      rm -rf "$(pwd)/fs/open.c"
+      rm -rf "$(pwd)/fs/read_write.c"
+      rm -rf "$(pwd)/fs/stat.c"
+      mv "$(pwd)/fs/exec.c.orig" "$(pwd)/fs/exec.c"
+      mv "$(pwd)/fs/open.c.orig" "$(pwd)/fs/open.c"
+      mv "$(pwd)/fs/read_write.c.orig" "$(pwd)/fs/read_write.c"
+      mv "$(pwd)/fs/stat.c.orig" "$(pwd)/fs/stat.c"
+   fi
 fi
 
 if [ "${WITH_OUTDIR}" == true ]; then
